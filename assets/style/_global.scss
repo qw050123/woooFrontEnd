@@ -1,0 +1,13 @@
+#__nuxt {
+  a {
+    color: #6666ff;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    &.router-link-exact-active {
+      color: #0000ff;
+      font-weight: bold;
+    }
+  }
+}
