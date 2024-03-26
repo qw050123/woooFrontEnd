@@ -1,38 +1,63 @@
 <template>
   <div class="admin-login">
     <v-form class="admin-login-form" v-model="form">
-      <div class="admin-login-form-title">後台系統</div>
-      <v-text-field v-model="email" :rules="[required, emailRule]" label="email"></v-text-field>
-      <v-text-field
-        v-model="password"
-        :rules="[required, passwordRule]"
-        type="password"
-        label="password"
-      ></v-text-field>
+      <div class="admin-login-form-title">Wooo Stock Management</div>
+      <v-text-field v-model="account" :rules="[required, accountRule]" label="帳號"></v-text-field>
+      <v-text-field v-model="password" :rules="[required, passwordRule]" type="password" label="密碼"></v-text-field>
       <div class="admin-login-form-control">
         <v-btn type="button" :disabled="!form" size="large" :loading="loading" @click="login">登入</v-btn>
       </div>
     </v-form>
   </div>
+  <Sanckbar />
 </template>
 <script setup lang="ts">
-import { storeAuth } from '@/stores/storeAuth';
-const { required, emailRule, passwordRule } = useFormRule();
+useHead({
+  title: '屋托王後台登入'
+});
+const { $axios } = useNuxtApp();
+import authStore from '@/stores/authStore';
+import snackbarStore from '@/stores/snackbarStore';
+import { storeToRefs } from 'pinia';
+const { required, accountRule, passwordRule } = useFormRule();
 const form = ref(false);
-const email = ref('');
+const account = ref('');
 const password = ref('');
 const loading = ref(false);
-const login = () => {
+const login = async () => {
   if (form.value == false) {
     return false;
   } else {
     loading.value = true;
-    setTimeout(() => {
+    try {
+      let res = await $axios.post(`/user/login`, {
+        account: account.value,
+        password: password.value
+      });
+      if (res.data.data.status === true) {
+        const _authStore = authStore();
+        _authStore.setAccount(account.value);
+        _authStore.setLoginToken(res.data.data.token);
+        loading.value = false;
+        navigateTo('/admin');
+      } else {
+        loading.value = false;
+        const _snackbarStore = snackbarStore();
+        _snackbarStore.setSnackBar({
+          color: 'error',
+          message: 'Login Error',
+          isOpen: true
+        });
+      }
+    } catch (_) {
       loading.value = false;
-      let _storeAuth = storeAuth();
-      _storeAuth.setLoginToken(`${email.value}${password.value}`);
-      navigateTo('/admin');
-    }, 3000);
+      const _snackbarStore = snackbarStore();
+      _snackbarStore.setSnackBar({
+        color: 'success',
+        message: 'Login Error',
+        isOpen: true
+      });
+    }
   }
 };
 </script>

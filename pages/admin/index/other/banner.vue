@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <AdminPageHeader pageName="首頁橫幅設定"></AdminPageHeader>
-  </div>
+  <AdminPageHeader pageName="首頁橫幅設定"></AdminPageHeader>
+  <div></div>
 </template>
-<script setup></script>
+<script setup>
+useSeoMeta({
+  title: '首頁橫幅設定'
+});
+</script>

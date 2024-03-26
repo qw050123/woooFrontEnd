@@ -1,13 +1,40 @@
+@import 'varible';
 #__nuxt {
   a {
-    color: #6666ff;
+    color: $primary-2;
     text-decoration: none;
     display: inline-block;
     width: 100%;
     height: 100%;
     &.router-link-exact-active {
-      color: #0000ff;
+      color: $primary-0;
       font-weight: bold;
     }
   }
+  .v-btn--size-default {
+    --v-btn-height: 40px;
+  }
+  .admin-container {
+    padding: 20px 30px;
+    height: 100%;
+    overflow: scroll;
+  }
+  .v-file-input {
+    .v-field.v-field--appended {
+      padding-right: 0;
+    }
+    .v-input__prepend {
+      display: none;
+    }
+  }
+}
+.wrong-info {
+  visibility: hidden;
+  &.show {
+    visibility: visible;
+  }
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

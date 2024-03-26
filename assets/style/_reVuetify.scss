@@ -1,0 +1,28 @@
+body {
+  .v-btn--size-default {
+    --v-btn-height: 40px;
+  }
+  .v-dialog {
+    .v-overlay__content {
+      background-color: #fff;
+    }
+    .dialog-header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &-title {
+        font-size: 20px;
+      }
+    }
+    .dialog-container {
+      padding: 20px;
+    }
+    .dialog-footer {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,5 +1,19 @@
 <template>
-  <div>全部的首頁</div>
+  <HomeHeader />
+  <div>首頁</div>
 </template>
-<script setup lang="ts"></script>
-<style lang="scss"></style>
+
+<script setup>
+const route = useRoute();
+useHead({
+  titleTemplate: title => {
+    return title ? `屋托網 - ${title}` : '屋托網';
+  },
+  meta: [
+    {
+      property: 'og:title',
+      content: `屋托網${route.meta ? ` - ` + route.meta.title : null}`
+    }
+  ]
+});
+</script>
